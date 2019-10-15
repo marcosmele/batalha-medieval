@@ -23,6 +23,10 @@ public class Batalha {
 	
 	private boolean finalizada;
 	
+	private Personagem heroi;
+	
+	private Personagem oponente;
+	
 	private Integer pontuacao;
 	
 
@@ -31,5 +35,5 @@ public class Batalha {
 		this.finalizada = false;
 		this.pontuacao = 0;
 	}
-	
+
 }
