@@ -2,6 +2,11 @@ package br.com.marcosmele.batalha_medieval.dominio;
 
 import lombok.Getter;
 
+/**
+ * Classe de personagens
+ * @author marcos
+ *
+ */
 public enum Classe {
 	
 	GUERREIRO("Guerreiro", Raca.HEROI),

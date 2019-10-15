@@ -1,0 +1,35 @@
+package br.com.marcosmele.batalha_medieval.dominio;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import lombok.Data;
+
+/**
+ * Batalha registrada com os jogadores.
+ * @author marcos
+ *
+ */
+@Document
+@Data
+public class Batalha {
+
+	@Id
+	private String id;
+	
+	@Indexed
+	private String jogador;
+	
+	private boolean finalizada;
+	
+	private Integer pontuacao;
+	
+
+	public Batalha(String jogador) {
+		this.jogador = jogador;
+		this.finalizada = false;
+		this.pontuacao = 0;
+	}
+	
+}
