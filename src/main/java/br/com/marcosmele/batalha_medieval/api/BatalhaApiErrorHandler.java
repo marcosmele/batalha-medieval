@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
+import br.com.marcosmele.batalha_medieval.excecao.BatalhaInvalidaException;
 
 /**
  * Handler de erros na utilização da API.
@@ -19,8 +20,15 @@ class BatalhaApiErrorHandler {
 	@ResponseBody
 	@ExceptionHandler(BatalhaExistenteException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	String planetNotFoundHandler(BatalhaExistenteException ex) {
+	String battleExistentHandler(BatalhaExistenteException ex) {
 		//TODO Melhorar para tratar o id como dado em separado para o cliente.
+		return ex.getMessage();
+	}
+	
+	@ResponseBody
+	@ExceptionHandler(BatalhaInvalidaException.class)
+	@ResponseStatus(HttpStatus.FORBIDDEN)
+	String battleNotFoundHandler(BatalhaInvalidaException ex) {
 		return ex.getMessage();
 	}
 

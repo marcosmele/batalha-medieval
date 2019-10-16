@@ -22,6 +22,12 @@ public class ServicoBatalha {
 	@Autowired
 	private ServicoGuerreiros servicoGuerreiros;
 	
+	/**
+	 * Cria uma nova batalha para o jogador
+	 * @param nickname do jogador
+	 * @return A batalha criada
+	 * @throws BatalhaExistenteException - caso já exista uma batalha em andamento para o jogador
+	 */
 	public Batalha novaBatalha(String jogador) throws BatalhaExistenteException{
 		Batalha batalha = repositorio.findByJogador(jogador);
 		if(batalha != null) {
@@ -31,13 +37,16 @@ public class ServicoBatalha {
 	}
 	
 	public void escolherHeroi(String idBatalha, Classe classe) {
-		//TODO tratar erro ao enviar batalha errada
 		Batalha batalha = repositorio.findById(idBatalha).get();
-		batalha.setHeroi(servicoGuerreiros.buscarHeroi(classe));
-		batalha.setOponente(servicoGuerreiros.escolherMonstro());
+		batalha.setHeroi(classe);
+		batalha.setOponente(servicoGuerreiros.escolherMonstro().getClasse());
 		
 		repositorio.save(batalha);
 		
+	}
+
+	public boolean existe(String idBatalha) {
+		return repositorio.existsById(idBatalha);
 	}
 		
 }

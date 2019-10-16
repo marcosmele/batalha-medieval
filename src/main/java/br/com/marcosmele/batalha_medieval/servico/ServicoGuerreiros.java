@@ -36,14 +36,27 @@ public class ServicoGuerreiros {
 		monstros.put(Classe.KOBOLD, new Personagem(Classe.KOBOLD,20,4,2,4,3,2));
 	}
 	
+	/**
+	 * Obtem a lista de Personagens de herois
+	 * @return
+	 */
 	public List<Personagem> herois(){
 		return (List<Personagem>) herois.values();
 	}
 	
+	/**
+	 * Obtem um heroi a partir de sua classe.
+	 * @param classe
+	 * @return
+	 */
 	public Personagem buscarHeroi(Classe classe) {
 		return herois.get(classe);
 	}
 	
+	/**
+	 * Escolhe de forma randômica dentre uma classe de monstros
+	 * @return Personagem monstro
+	 */
 	public Personagem escolherMonstro() {
 		Set<Classe> arrayMonstros = monstros.keySet();
 		return (Personagem) arrayMonstros.toArray()[new Random().nextInt(arrayMonstros.size())];

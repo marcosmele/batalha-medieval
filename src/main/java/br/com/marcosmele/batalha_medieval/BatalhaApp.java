@@ -10,5 +10,4 @@ public class BatalhaApp {
 		SpringApplication.run(BatalhaApp.class, args);	
 	}
 	
-
 }

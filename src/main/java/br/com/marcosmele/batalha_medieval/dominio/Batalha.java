@@ -23,9 +23,9 @@ public class Batalha {
 	
 	private boolean finalizada;
 	
-	private Personagem heroi;
+	private Classe heroi;
 	
-	private Personagem oponente;
+	private Classe oponente;
 	
 	private Integer pontuacao;
 	
