@@ -9,6 +9,11 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaInvalidaException;
 import br.com.marcosmele.batalha_medieval.servico.ServicoBatalha;
 
+/**
+ * Interceptador que identifica se foi informado o header do id da batalha e se o mesmo existe.
+ * @author marcos
+ *
+ */
 public class BatalhaApiInterceptor extends HandlerInterceptorAdapter {
 
 	private ServicoBatalha servico;

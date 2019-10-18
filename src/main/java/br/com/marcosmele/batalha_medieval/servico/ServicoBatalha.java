@@ -11,6 +11,7 @@ import br.com.marcosmele.batalha_medieval.dominio.Batalha;
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
 import br.com.marcosmele.batalha_medieval.dominio.Dado;
 import br.com.marcosmele.batalha_medieval.dominio.Iniciativa;
+import br.com.marcosmele.batalha_medieval.dominio.Personagem;
 import br.com.marcosmele.batalha_medieval.dominio.Raca;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
 import br.com.marcosmele.batalha_medieval.repositorio.RepositorioBatalha;
@@ -23,6 +24,9 @@ import br.com.marcosmele.batalha_medieval.repositorio.RepositorioBatalha;
 @Service
 public class ServicoBatalha {
 	
+	private static final int QTD_FACES_INICIATIVA = 10;
+	private static final int QTD_DADO_INICIATIVA = 1;
+
 	@Autowired
 	private RepositorioBatalha repositorio;
 	
@@ -43,6 +47,11 @@ public class ServicoBatalha {
 		return repositorio.save(new Batalha(jogador));
 	}
 	
+	/**
+	 * Salva a escolha do heroi e tambem define de forma randomica quem e o monstro oponente.
+	 * @param idBatalha
+	 * @param classe
+	 */
 	public void escolherHeroi(String idBatalha, Classe classe) {
 		Batalha batalha = repositorio.findById(idBatalha).get();
 		batalha.setHeroi(classe);
@@ -52,10 +61,21 @@ public class ServicoBatalha {
 		
 	}
 
+	/**
+	 * Identifica se existe ou nao a batalha em andamento
+	 * @param idBatalha
+	 * @return
+	 */
 	public boolean existe(String idBatalha) {
 		return repositorio.existsById(idBatalha);
 	}
 	
+	/**
+	 * Define quem ira iniciar a batalha e comecar com a iniciativa. 
+	 * Tenta varias tentativas a partir da rolagem dos dados
+	 * @param idBatalha
+	 * @return
+	 */
 	public List<Iniciativa> definirIniciativa(String idBatalha) {
 		Batalha batalha = repositorio.findById(idBatalha).get();
 		List<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
@@ -71,11 +91,49 @@ public class ServicoBatalha {
 		return iniciativas;
 	}
 	
+	public int atacar(String idBatalha) {
+		Batalha batalha = repositorio.findById(idBatalha).get();
+		Raca atacante = batalha.getTurno();
+		
+		Dado dadoHeroi = rolarDados(QTD_DADO_INICIATIVA, QTD_FACES_INICIATIVA);
+		Dado dadoMonstro = rolarDados(QTD_DADO_INICIATIVA, QTD_FACES_INICIATIVA);
+		
+		Personagem heroi = servicoGuerreiros.buscarHeroi(batalha.getHeroi());
+		Personagem monstro = servicoGuerreiros.buscarMonstro(batalha.getOponente());
+		
+		int totalHeroi = dadoHeroi.getTotal() + heroi.getAgilidade();
+		int totalMonstro = dadoMonstro.getTotal() + monstro.getAgilidade();
+		
+		if(atacante.equals(Raca.HEROI)) {
+			totalHeroi += heroi.getForca();
+			totalMonstro += monstro.getDefesa();
+			
+			if(totalHeroi > totalMonstro) {
+				return calcularDano();
+			}
+			return 0;
+		} else {
+			totalHeroi += heroi.getDefesa();
+			totalMonstro += monstro.getForca();
+			
+			if(totalMonstro > totalHeroi) {
+				return calcularDano();
+			}
+			return 0;
+		}
+		
+		
+	}
+	
+	private int calcularDano() {
+		return 5;
+	}
+	
 	private Iniciativa criarIniciativa(Classe heroi, Classe monstro) {
 		Iniciativa iniciativa = new Iniciativa();
 		
-		Dado dadoHeroi = rolarDados(1,10);
-		Dado dadoMonstro = rolarDados(1,10);
+		Dado dadoHeroi = rolarDados(QTD_DADO_INICIATIVA, QTD_FACES_INICIATIVA);
+		Dado dadoMonstro = rolarDados(QTD_DADO_INICIATIVA, QTD_FACES_INICIATIVA);
 		
 		iniciativa.getLancamentos().put(Raca.HEROI, dadoHeroi);
 		iniciativa.getLancamentos().put(Raca.MONSTRO, dadoMonstro);

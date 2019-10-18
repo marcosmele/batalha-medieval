@@ -154,7 +154,38 @@ public class BatalhaApiTests {
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(API_BATALHA + "iniciativa").header("ID_BATALHA", idBatalha);
 		ResultMatcher retorno = MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(Arrays.asList(iniciativa)));
 		
-		System.out.println(new ObjectMapper().writeValueAsString(Arrays.asList(iniciativa)));
+		mvc.perform(request).andExpect(retorno);
+	}
+	
+	@Test
+	public void iniciativaListaTest() throws Exception {
+		
+		String idBatalha = "123";
+		
+		Iniciativa iniciativa1 = new Iniciativa();
+		Dado dado1 = new Dado();
+		dado1.lancar(8);
+		Dado dado2 = new Dado();
+		dado2.lancar(3);
+		iniciativa1.getLancamentos().put(Raca.HEROI, dado1);
+		iniciativa1.getLancamentos().put(Raca.MONSTRO, dado2);
+		
+		Iniciativa iniciativa2 = new Iniciativa();
+		Dado dado3 = new Dado();
+		dado1.lancar(8);
+		Dado dado4 = new Dado();
+		dado2.lancar(9);
+		iniciativa2.getLancamentos().put(Raca.HEROI, dado3);
+		iniciativa2.getLancamentos().put(Raca.MONSTRO, dado4);
+		iniciativa2.setVencedor(Raca.MONSTRO);
+		
+		BDDMockito.given(servicoBatalha.existe(idBatalha)).willReturn(true);
+
+		BDDMockito.given(servicoBatalha.definirIniciativa(idBatalha)).willReturn(Arrays.asList(iniciativa1,iniciativa2));
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(API_BATALHA + "iniciativa").header("ID_BATALHA", idBatalha);
+		ResultMatcher retorno = MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(Arrays.asList(iniciativa1,iniciativa2)));
+		
 		mvc.perform(request).andExpect(retorno);
 	}
 

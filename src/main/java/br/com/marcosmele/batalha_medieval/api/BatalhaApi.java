@@ -48,4 +48,8 @@ public class BatalhaApi {
 		return servicoBatalha.definirIniciativa(idBatalha);
 	}
 	
+	@PostMapping("/ataque")
+	public void ataque(@RequestHeader("ID_BATALHA") String idBatalha){
+	}
+	
 }
