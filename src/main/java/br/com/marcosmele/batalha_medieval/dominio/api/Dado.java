@@ -1,4 +1,4 @@
-package br.com.marcosmele.batalha_medieval.dominio;
+package br.com.marcosmele.batalha_medieval.dominio.api;
 
 import java.util.ArrayList;
 import java.util.List;

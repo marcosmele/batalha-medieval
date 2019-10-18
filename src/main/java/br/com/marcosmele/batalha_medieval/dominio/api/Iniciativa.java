@@ -1,8 +1,9 @@
-package br.com.marcosmele.batalha_medieval.dominio;
+package br.com.marcosmele.batalha_medieval.dominio.api;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import br.com.marcosmele.batalha_medieval.dominio.Raca;
 import lombok.Data;
 
 @Data

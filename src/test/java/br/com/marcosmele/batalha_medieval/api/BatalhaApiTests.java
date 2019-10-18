@@ -20,10 +20,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.marcosmele.batalha_medieval.dominio.Batalha;
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
-import br.com.marcosmele.batalha_medieval.dominio.Dado;
-import br.com.marcosmele.batalha_medieval.dominio.Iniciativa;
 import br.com.marcosmele.batalha_medieval.dominio.Personagem;
 import br.com.marcosmele.batalha_medieval.dominio.Raca;
+import br.com.marcosmele.batalha_medieval.dominio.api.Dado;
+import br.com.marcosmele.batalha_medieval.dominio.api.Iniciativa;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
 import br.com.marcosmele.batalha_medieval.servico.ServicoBatalha;
 import br.com.marcosmele.batalha_medieval.servico.ServicoGuerreiros;

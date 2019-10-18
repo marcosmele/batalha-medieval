@@ -27,6 +27,10 @@ public class Batalha {
 	
 	private Classe oponente;
 	
+	private int vidaHeroi;
+	
+	private int vidaOponente;
+	
 	private Integer pontuacao;
 
 	private Raca turno;

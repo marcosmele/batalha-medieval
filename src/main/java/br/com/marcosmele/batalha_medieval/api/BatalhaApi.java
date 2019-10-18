@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
-import br.com.marcosmele.batalha_medieval.dominio.Iniciativa;
 import br.com.marcosmele.batalha_medieval.dominio.Personagem;
+import br.com.marcosmele.batalha_medieval.dominio.api.Iniciativa;
 import br.com.marcosmele.batalha_medieval.servico.ServicoBatalha;
 import br.com.marcosmele.batalha_medieval.servico.ServicoGuerreiros;
 

@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 
 import br.com.marcosmele.batalha_medieval.dominio.Batalha;
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
-import br.com.marcosmele.batalha_medieval.dominio.Dado;
-import br.com.marcosmele.batalha_medieval.dominio.Iniciativa;
 import br.com.marcosmele.batalha_medieval.dominio.Personagem;
 import br.com.marcosmele.batalha_medieval.dominio.Raca;
+import br.com.marcosmele.batalha_medieval.dominio.api.Dado;
+import br.com.marcosmele.batalha_medieval.dominio.api.Iniciativa;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
 import br.com.marcosmele.batalha_medieval.repositorio.RepositorioBatalha;
 
@@ -55,7 +55,11 @@ public class ServicoBatalha {
 	public void escolherHeroi(String idBatalha, Classe classe) {
 		Batalha batalha = repositorio.findById(idBatalha).get();
 		batalha.setHeroi(classe);
-		batalha.setOponente(servicoGuerreiros.escolherMonstro().getClasse());
+		batalha.setVidaHeroi(servicoGuerreiros.buscarHeroi(classe).getPontosVida());
+
+		Personagem monstro = servicoGuerreiros.escolherMonstro();
+		batalha.setOponente(monstro.getClasse());
+		batalha.setVidaOponente(monstro.getPontosVida());
 		
 		repositorio.save(batalha);
 		
@@ -109,7 +113,7 @@ public class ServicoBatalha {
 			totalMonstro += monstro.getDefesa();
 			
 			if(totalHeroi > totalMonstro) {
-				return calcularDano();
+				return calcularDano(heroi);
 			}
 			return 0;
 		} else {
@@ -117,7 +121,7 @@ public class ServicoBatalha {
 			totalMonstro += monstro.getForca();
 			
 			if(totalMonstro > totalHeroi) {
-				return calcularDano();
+				return calcularDano(monstro);
 			}
 			return 0;
 		}
@@ -125,8 +129,11 @@ public class ServicoBatalha {
 		
 	}
 	
-	private int calcularDano() {
-		return 5;
+	private int calcularDano(Personagem atacante) {
+		
+		Dado dado = rolarDados(atacante.getQuantidadeDadosDano(), atacante.getFacesDadosDano());
+		
+		return dado.getTotal() + atacante.getForca();
 	}
 	
 	private Iniciativa criarIniciativa(Classe heroi, Classe monstro) {
