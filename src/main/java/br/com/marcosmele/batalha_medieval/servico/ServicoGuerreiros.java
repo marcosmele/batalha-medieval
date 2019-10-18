@@ -68,7 +68,7 @@ public class ServicoGuerreiros {
 	 */
 	public Personagem escolherMonstro() {
 		Set<Classe> arrayMonstros = monstros.keySet();
-		return (Personagem) arrayMonstros.toArray()[new Random().nextInt(arrayMonstros.size())];
+		return monstros.get(arrayMonstros.toArray()[new Random().nextInt(arrayMonstros.size())]);
 	}
 
 }

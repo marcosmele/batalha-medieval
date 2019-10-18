@@ -39,11 +39,11 @@ public class BatalhaApi {
 	}
 	
 	@PostMapping("/heroi")
-	public void escolherHeroi(@RequestHeader("ID_BATALHA") String idBatalha, @RequestBody @NotBlank Classe classe) {
-		servicoBatalha.escolherHeroi(idBatalha, classe);
+	public void escolherHeroi(@RequestHeader("ID_BATALHA") String idBatalha, @RequestBody @NotBlank String classe) {
+		servicoBatalha.escolherHeroi(idBatalha, Classe.valueOf(classe));
 	}
 	
-	@GetMapping("/iniciativa")
+	@PostMapping("/iniciativa")
 	public List<Iniciativa> iniciativa(@RequestHeader("ID_BATALHA") String idBatalha){
 		return servicoBatalha.definirIniciativa(idBatalha);
 	}
