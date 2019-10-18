@@ -20,7 +20,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.com.marcosmele.batalha_medieval.dominio.Batalha;
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
+import br.com.marcosmele.batalha_medieval.dominio.Dado;
+import br.com.marcosmele.batalha_medieval.dominio.Iniciativa;
 import br.com.marcosmele.batalha_medieval.dominio.Personagem;
+import br.com.marcosmele.batalha_medieval.dominio.Raca;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
 import br.com.marcosmele.batalha_medieval.servico.ServicoBatalha;
 import br.com.marcosmele.batalha_medieval.servico.ServicoGuerreiros;
@@ -91,6 +94,67 @@ public class BatalhaApiTests {
 		
 		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(API_BATALHA + "heroi").content(Classe.BARBARO.toString());
 		ResultMatcher retorno = MockMvcResultMatchers.status().isForbidden();
+		mvc.perform(request).andExpect(retorno);
+	}
+	
+	
+	@Test
+	public void apiComHeaderInvalidoTest() throws Exception {
+		
+		String idBatalha = "123";
+		
+		BDDMockito.given(servicoBatalha.existe(idBatalha)).willReturn(false);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(API_BATALHA + "heroi").header("ID_BATALHA", idBatalha).content(Classe.BARBARO.toString());
+		ResultMatcher retorno = MockMvcResultMatchers.status().isForbidden();
+		mvc.perform(request).andExpect(retorno);
+	}
+	
+	@Test
+	public void escolherHeroiTest() throws Exception {
+		
+		String idBatalha = "123";
+		
+		BDDMockito.given(servicoBatalha.existe(idBatalha)).willReturn(true);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(API_BATALHA + "heroi").header("ID_BATALHA", idBatalha).content(Classe.GUERREIRO.name());
+		ResultMatcher retorno = MockMvcResultMatchers.status().isOk();
+		mvc.perform(request).andExpect(retorno);
+	}
+	
+	@Test(expected=Exception.class)
+	public void escolherHeroiInexistenteTest() throws Exception {
+		
+		String idBatalha = "123";
+		
+		BDDMockito.given(servicoBatalha.existe(idBatalha)).willReturn(true);
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(API_BATALHA + "heroi").header("ID_BATALHA", idBatalha).content("LUTADOR");
+		mvc.perform(request);
+	}
+	
+	@Test
+	public void iniciativaTest() throws Exception {
+		
+		String idBatalha = "123";
+		
+		Iniciativa iniciativa = new Iniciativa();
+		Dado dado1 = new Dado();
+		dado1.lancar(8);
+		Dado dado2 = new Dado();
+		dado2.lancar(4);
+		iniciativa.getLancamentos().put(Raca.HEROI, dado1);
+		iniciativa.getLancamentos().put(Raca.MONSTRO, dado2);
+		iniciativa.setVencedor(Raca.HEROI);
+		
+		BDDMockito.given(servicoBatalha.existe(idBatalha)).willReturn(true);
+
+		BDDMockito.given(servicoBatalha.definirIniciativa(idBatalha)).willReturn(Arrays.asList(iniciativa));
+		
+		MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post(API_BATALHA + "iniciativa").header("ID_BATALHA", idBatalha);
+		ResultMatcher retorno = MockMvcResultMatchers.content().json(new ObjectMapper().writeValueAsString(Arrays.asList(iniciativa)));
+		
+		System.out.println(new ObjectMapper().writeValueAsString(Arrays.asList(iniciativa)));
 		mvc.perform(request).andExpect(retorno);
 	}
 
