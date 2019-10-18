@@ -1,10 +1,17 @@
 package br.com.marcosmele.batalha_medieval.servico;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.marcosmele.batalha_medieval.dominio.Batalha;
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
+import br.com.marcosmele.batalha_medieval.dominio.Dado;
+import br.com.marcosmele.batalha_medieval.dominio.Iniciativa;
+import br.com.marcosmele.batalha_medieval.dominio.Raca;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
 import br.com.marcosmele.batalha_medieval.repositorio.RepositorioBatalha;
 
@@ -47,6 +54,52 @@ public class ServicoBatalha {
 
 	public boolean existe(String idBatalha) {
 		return repositorio.existsById(idBatalha);
+	}
+	
+	public List<Iniciativa> definirIniciativa(String idBatalha) {
+		Batalha batalha = repositorio.findById(idBatalha).get();
+		List<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
+		Iniciativa iniciativa;
+		do {
+			iniciativa = criarIniciativa(batalha.getHeroi(),batalha.getOponente());
+			iniciativas.add(iniciativa);
+		} while(iniciativa.getVencedor() == null);
+		
+		batalha.setTurno(iniciativa.getVencedor());
+		repositorio.save(batalha);
+		
+		return iniciativas;
+	}
+	
+	private Iniciativa criarIniciativa(Classe heroi, Classe monstro) {
+		Iniciativa iniciativa = new Iniciativa();
+		
+		Dado dadoHeroi = rolarDados(1,10);
+		Dado dadoMonstro = rolarDados(1,10);
+		
+		iniciativa.getLancamentos().put(Raca.HEROI, dadoHeroi);
+		iniciativa.getLancamentos().put(Raca.MONSTRO, dadoMonstro);
+		
+		int totalHeroi = dadoHeroi.getTotal() + servicoGuerreiros.buscarHeroi(heroi).getAgilidade();
+		int totalMonstro = dadoMonstro.getTotal() + servicoGuerreiros.buscarMonstro(monstro).getAgilidade();
+		
+		Raca vencedor = null;
+		if(totalHeroi > totalMonstro) {
+			vencedor = Raca.HEROI;
+		}else if(totalHeroi < totalMonstro) {
+			vencedor = Raca.MONSTRO;
+		}
+		iniciativa.setVencedor(vencedor);
+		
+		return iniciativa;
+	}
+	
+	private Dado rolarDados(int quantidade, int faces) {
+		Dado dado = new Dado();
+		for(int i = 1; i<=quantidade; i++) {
+			dado.lancar(new Random().nextInt(faces));
+		}
+		return dado;
 	}
 		
 }

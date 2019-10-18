@@ -54,6 +54,15 @@ public class ServicoGuerreiros {
 	}
 	
 	/**
+	 * Obtem um monstro a partir de sua classe.
+	 * @param classe
+	 * @return
+	 */
+	public Personagem buscarMonstro(Classe classe) {
+		return monstros.get(classe);
+	}
+	
+	/**
 	 * Escolhe de forma randômica dentre uma classe de monstros
 	 * @return Personagem monstro
 	 */
