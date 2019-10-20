@@ -6,6 +6,6 @@ import br.com.marcosmele.batalha_medieval.dominio.Batalha;
 
 public interface RepositorioBatalha extends CrudRepository<Batalha, String>{
 	
-	public Batalha findByJogador(String jogador);
+	public Batalha findByJogadorAndFinalizada(String jogador, boolean finalizada);
 
 }

@@ -34,13 +34,12 @@ public class Batalha {
 	private Integer pontuacao;
 
 	private Raca turno;
-
+	
 	public Batalha(String jogador) {
 		this.jogador = jogador;
 		this.finalizada = false;
 		this.pontuacao = 0;
 	}
-
 
 
 }

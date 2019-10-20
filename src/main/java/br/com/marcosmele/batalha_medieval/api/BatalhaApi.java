@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
 import br.com.marcosmele.batalha_medieval.dominio.Personagem;
+import br.com.marcosmele.batalha_medieval.dominio.api.Ataque;
 import br.com.marcosmele.batalha_medieval.dominio.api.Iniciativa;
 import br.com.marcosmele.batalha_medieval.servico.ServicoBatalha;
 import br.com.marcosmele.batalha_medieval.servico.ServicoGuerreiros;
@@ -49,7 +50,8 @@ public class BatalhaApi {
 	}
 	
 	@PostMapping("/ataque")
-	public void ataque(@RequestHeader("ID_BATALHA") String idBatalha){
+	public Ataque ataque(@RequestHeader("ID_BATALHA") String idBatalha){
+		return servicoBatalha.atacar(idBatalha);
 	}
 	
 }
