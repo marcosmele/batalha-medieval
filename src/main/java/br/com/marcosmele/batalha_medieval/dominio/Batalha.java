@@ -35,10 +35,16 @@ public class Batalha {
 
 	private Raca turno;
 	
+	private int quantidadeTurnos;
+	
 	public Batalha(String jogador) {
 		this.jogador = jogador;
 		this.finalizada = false;
 		this.pontuacao = 0;
+	}
+	
+	public void addTurno() {
+		quantidadeTurnos += 1;
 	}
 
 

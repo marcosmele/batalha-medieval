@@ -106,6 +106,7 @@ public class ServicoBatalha {
 	 */
 	public Ataque atacar(String idBatalha) {
 		Batalha batalha = repositorio.findById(idBatalha).get();
+		batalha.addTurno();
 		Ataque ataque = null;
 		
 		Dado dadoHeroi = servicoCalculo.rolarDados(ConstanteBatalha.QTD_DADO_INICIATIVA, ConstanteBatalha.QTD_FACES_INICIATIVA);

@@ -20,6 +20,8 @@ class ServicoCalculadorBatalha {
 	@Autowired
 	private ServicoGuerreiros servicoGuerreiros;
 	
+	@Autowired ServicoRanking servicoRanking;
+	
 	/**
 	 * Calcula a força de um personagem para o turno baseado na rolagem de dados e se o personagem é o atacante ou defensor.
 	 * @param dado - Rolagem do dado realizada.
@@ -110,7 +112,7 @@ class ServicoCalculadorBatalha {
 			ataque.setVidaRestanteMonstro(vida);
 			if(vida == 0) {
 				batalha.setFinalizada(true);
-				//servicoRanking.criar(batalha.getJogador(), batalha.getTotalTurnos());
+				servicoRanking.criar(batalha.getJogador(), batalha.getQuantidadeTurnos());
 			}
 		}else {
 			int vida = (batalha.getVidaHeroi() > ataque.getTotalDano()) ? batalha.getVidaHeroi()-ataque.getTotalDano() : 0;
