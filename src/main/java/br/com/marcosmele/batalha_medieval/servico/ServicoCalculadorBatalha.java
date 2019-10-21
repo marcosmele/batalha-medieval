@@ -91,7 +91,7 @@ class ServicoCalculadorBatalha {
 	Dado rolarDados(int quantidade, int faces) {
 		Dado dado = new Dado();
 		for(int i = 1; i<=quantidade; i++) {
-			dado.lancar(new Random().nextInt(faces));
+			dado.lancar(new Random().ints(1,faces+1).findFirst().getAsInt());
 		}
 		return dado;
 	}
@@ -106,6 +106,7 @@ class ServicoCalculadorBatalha {
 		if(batalha.getTurno().equals(Raca.HEROI)) {
 			int vida = (batalha.getVidaOponente() > ataque.getTotalDano()) ? batalha.getVidaOponente()-ataque.getTotalDano() : 0;
 			batalha.setVidaOponente(vida);
+			ataque.setVidaRestanteHeroi(batalha.getVidaHeroi());
 			ataque.setVidaRestanteMonstro(vida);
 			if(vida == 0) {
 				batalha.setFinalizada(true);
@@ -114,15 +115,12 @@ class ServicoCalculadorBatalha {
 		}else {
 			int vida = (batalha.getVidaHeroi() > ataque.getTotalDano()) ? batalha.getVidaHeroi()-ataque.getTotalDano() : 0;
 			batalha.setVidaHeroi(vida);
+			ataque.setVidaRestanteMonstro(batalha.getVidaOponente());
 			ataque.setVidaRestanteHeroi(vida);
 			if(vida == 0) {
 				batalha.setFinalizada(true);
 			}
 		}
-		
-		
-		
 	}
-		
 
 }

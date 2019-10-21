@@ -1,5 +1,6 @@
 package br.com.marcosmele.batalha_medieval.servico;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,7 +42,7 @@ public class ServicoGuerreiros {
 	 * @return
 	 */
 	public List<Personagem> herois(){
-		return (List<Personagem>) herois.values();
+		return new ArrayList<Personagem>(herois.values());
 	}
 	
 	/**
