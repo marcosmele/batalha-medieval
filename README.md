@@ -2,6 +2,8 @@
 
 Este projeto consiste de uma API desenvolvida para realização de um jogo de batalha medieval.
 
+
+
 ## Tecnologias
 
 Esta API Rest está desenvolvida em Java em sua versão <a href="https://www.oracle.com/technetwork/pt/java/javase/downloads/jdk8-downloads-2133151.html">8</a> com <a href="https://spring.io/projects/spring-boot">Spring Boot 2</a>, utilizando <a href="https://www.mongodb.com/">MongoDB</a> como repositório de dados
@@ -28,6 +30,10 @@ Funcionalidades:
 * Visualizar Ranking
 
 A documentação da API pode ser melhor visualizada de forma iterativa através do <a href="http://localhost:8080/swagger-ui.html">Swagger</a> assim que a aplicação estiver no ar.
+
+Existe um projeto de exemplo em  <a href="https://github.com/marcosmele/batalha-medieval-client">Batalha Medieval Client</a> onde é possível observar o processo encadeado da API.
+
+A descrição do processo pode ser visualizada no arquivo descritivo `Desafio-Desenvolvedor-RPG-Battle.pdf`
 
 ## Desenvolvimento
 
