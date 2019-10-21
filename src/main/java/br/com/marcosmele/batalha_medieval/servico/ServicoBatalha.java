@@ -15,6 +15,7 @@ import br.com.marcosmele.batalha_medieval.dominio.api.Ataque;
 import br.com.marcosmele.batalha_medieval.dominio.api.Dado;
 import br.com.marcosmele.batalha_medieval.dominio.api.Iniciativa;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
+import br.com.marcosmele.batalha_medieval.excecao.MovimentoIncorretoException;
 import br.com.marcosmele.batalha_medieval.repositorio.RepositorioBatalha;
 
 /**
@@ -52,9 +53,13 @@ public class ServicoBatalha {
 	 * Salva a escolha do heroi e tambem define de forma randomica quem e o monstro oponente.
 	 * @param idBatalha
 	 * @param classe
+	 * @throws MovimentoIncorretoException 
 	 */
-	public void escolherHeroi(String idBatalha, Classe classe) {
+	public void escolherHeroi(String idBatalha, Classe classe) throws MovimentoIncorretoException {
 		Batalha batalha = repositorio.findById(idBatalha).get();
+		if(batalha.getHeroi() != null) {
+			throw new MovimentoIncorretoException("Não é possível trocar seu personagem.");
+		}
 		batalha.setHeroi(classe);
 		batalha.setVidaHeroi(servicoGuerreiros.buscarHeroi(classe).getPontosVida());
 
@@ -81,9 +86,16 @@ public class ServicoBatalha {
 	 * Tenta varias tentativas a partir da rolagem dos dados
 	 * @param idBatalha
 	 * @return
+	 * @throws MovimentoIncorretoException 
 	 */
-	public List<Iniciativa> definirIniciativa(String idBatalha) {
+	public List<Iniciativa> definirIniciativa(String idBatalha) throws MovimentoIncorretoException {
 		Batalha batalha = repositorio.findById(idBatalha).get();
+		if(batalha.getHeroi() == null) {
+			throw new MovimentoIncorretoException("Não é possível iniciar iniciativas e ataques sem selecionar seu personagem.");
+		}
+		if(batalha.getTurno() != null) {
+			throw new MovimentoIncorretoException("A iniciativa já foi realizada, favor realizar seu ataque.");
+		}
 		List<Iniciativa> iniciativas = new ArrayList<Iniciativa>();
 		Iniciativa iniciativa;
 		do {
@@ -103,9 +115,17 @@ public class ServicoBatalha {
 	 * O ataque apos realizado, recebe a contagem do dano e define o ponto de vida restante de cada personagem.
 	 * @param idBatalha
 	 * @return
+	 * @throws MovimentoIncorretoException 
 	 */
-	public Ataque atacar(String idBatalha) {
+	public Ataque atacar(String idBatalha) throws MovimentoIncorretoException {
 		Batalha batalha = repositorio.findById(idBatalha).get();
+		
+		if(batalha.getHeroi() == null) {
+			throw new MovimentoIncorretoException("Não é possível iniciar ataques sem selecionar seu personagem.");
+		}
+		if(batalha.getTurno() == null) {
+			throw new MovimentoIncorretoException("Não é possível realizar um ataque sem realizar previamente a iniciativa.");
+		}
 		batalha.addTurno();
 		Ataque ataque = null;
 		
@@ -134,6 +154,7 @@ public class ServicoBatalha {
 		return ataque;
 		
 	}
+
 	
 
 }
