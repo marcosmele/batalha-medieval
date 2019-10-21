@@ -8,9 +8,13 @@ public class BatalhaExistenteException extends RuntimeException {
 	@Getter
 	private String id;
 	
-	public BatalhaExistenteException(String id) {
-		super("Não é possível iniciar uma nova partida. Já existe uma partida " + id + " em andamento. Favor continuar ou desistir.");
+	@Getter
+	private String proximaAcao;
+	
+	public BatalhaExistenteException(String id, String proximaAcao) {
+		super("Não é possível iniciar uma nova partida. Já existe uma partida " + id + " em andamento. Prossiga com o próximo passo: " + proximaAcao);
 		this.id = id;
+		this.proximaAcao = proximaAcao;
 	}
 	
 

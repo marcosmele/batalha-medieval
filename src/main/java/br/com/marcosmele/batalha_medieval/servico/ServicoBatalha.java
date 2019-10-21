@@ -44,9 +44,19 @@ public class ServicoBatalha {
 	public Batalha novaBatalha(String jogador) throws BatalhaExistenteException{
 		Batalha batalha = repositorio.findByJogadorAndFinalizada(jogador,false);
 		if(batalha != null) {
-			throw new BatalhaExistenteException(batalha.getId());
+			throw new BatalhaExistenteException(batalha.getId(),proximaAcao(batalha));
 		} 
 		return repositorio.save(new Batalha(jogador));
+	}
+	
+	private String proximaAcao(Batalha batalha) {
+		if(batalha.getHeroi() == null) {
+			return "heroi";
+		} else if (batalha.getTurno() == null) {
+			return "iniciativa";
+		} else {
+			return "ataque";
+		}
 	}
 	
 	/**

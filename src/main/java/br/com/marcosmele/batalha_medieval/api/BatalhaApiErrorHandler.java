@@ -1,6 +1,7 @@
 package br.com.marcosmele.batalha_medieval.api;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,9 +22,15 @@ class BatalhaApiErrorHandler {
 	@ResponseBody
 	@ExceptionHandler(BatalhaExistenteException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	String battleExistentHandler(BatalhaExistenteException ex) {
-		//TODO Melhorar para tratar o id como dado em separado para o cliente.
-		return ex.getMessage();
+	ResponseEntity<Object> battleExistentHandler(BatalhaExistenteException ex) {
+		StringBuilder retorno = new StringBuilder();
+		retorno.append("{");
+		retorno.append("\"error\":\"" + ex.getMessage() + "\",");
+		retorno.append("\"idBatalha\":\"" + ex.getId() + "\",");
+		retorno.append("\"proximoPasso\":\"" + ex.getProximaAcao()+ "\"");
+		retorno.append("}");
+		
+		return new ResponseEntity<Object>(retorno.toString(), HttpStatus.BAD_REQUEST);
 	}
 	
 	@ResponseBody
