@@ -133,13 +133,14 @@ public class ServicoBatalhaSemBDTest {
 	
 	@Test
 	public void atacarFinalizadoTest() {
-		int totalHeroi = 10, totalMonstro = 8;
+		int totalHeroi = 8, totalMonstro = 10;
 		
 		Ataque ataque = new Ataque();
 		ataque.setTotalDano(30);
 		
-		batalhaMock.setTurno(Raca.HEROI);
+		batalhaMock.setTurno(Raca.MONSTRO);
 		batalhaMock.setVidaOponente(20);
+		batalhaMock.setQuantidadeTurnos(1);
 		
 		Personagem heroi =  new Personagem(batalhaMock.getHeroi(),12,4,3,3,2,4);
 		Personagem monstro = new Personagem(batalhaMock.getOponente(),20,6,2,2,1,8);
@@ -149,11 +150,12 @@ public class ServicoBatalhaSemBDTest {
 		BDDMockito.given(servicoGuerreiro.buscarHeroi(batalhaMock.getHeroi())).willReturn(heroi);
 		BDDMockito.given(servicoGuerreiro.buscarMonstro(batalhaMock.getOponente())).willReturn(monstro);
 		
-		BDDMockito.when(servicoCalculo.calcularForca(dado1, heroi, true)).thenReturn(totalHeroi);
-		BDDMockito.when(servicoCalculo.calcularForca(dado2, monstro, false)).thenReturn(totalMonstro);
-		BDDMockito.when(servicoCalculo.calcularDano(totalHeroi, totalMonstro, heroi)).thenReturn(ataque);		
+		BDDMockito.when(servicoCalculo.calcularForca(dado1, heroi, false)).thenReturn(totalHeroi);
+		BDDMockito.when(servicoCalculo.calcularForca(dado2, monstro, true)).thenReturn(totalMonstro);
+		BDDMockito.when(servicoCalculo.calcularDano(totalMonstro, totalHeroi, monstro)).thenReturn(ataque);		
 		
 		BDDMockito.doCallRealMethod().when(servicoCalculo).calcularTurno(ataque, batalhaMock);
+		
 		
 		servico.atacar(IDBATALHA);
 		

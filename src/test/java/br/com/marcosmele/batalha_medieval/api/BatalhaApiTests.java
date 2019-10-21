@@ -27,6 +27,7 @@ import br.com.marcosmele.batalha_medieval.dominio.api.Iniciativa;
 import br.com.marcosmele.batalha_medieval.excecao.BatalhaExistenteException;
 import br.com.marcosmele.batalha_medieval.servico.ServicoBatalha;
 import br.com.marcosmele.batalha_medieval.servico.ServicoGuerreiros;
+import br.com.marcosmele.batalha_medieval.servico.ServicoRanking;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(BatalhaApi.class)
@@ -42,6 +43,9 @@ public class BatalhaApiTests {
 	
 	@MockBean
 	private ServicoGuerreiros servicoGuerreiros;
+	
+	@MockBean
+	private ServicoRanking servicoRanking;
 
 	@Test
 	public void iniciarBatalhaTest() throws Exception {

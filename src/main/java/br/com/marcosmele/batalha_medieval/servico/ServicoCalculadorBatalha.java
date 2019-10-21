@@ -20,7 +20,8 @@ class ServicoCalculadorBatalha {
 	@Autowired
 	private ServicoGuerreiros servicoGuerreiros;
 	
-	@Autowired ServicoRanking servicoRanking;
+	@Autowired 
+	private ServicoRanking servicoRanking;
 	
 	/**
 	 * Calcula a força de um personagem para o turno baseado na rolagem de dados e se o personagem é o atacante ou defensor.
