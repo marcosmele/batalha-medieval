@@ -19,7 +19,7 @@ public class Configuracao implements WebMvcConfigurer
     {
         registry.addInterceptor(new BatalhaApiInterceptor(servico))
         	.addPathPatterns("/api/**")
-        	.excludePathPatterns("/api/iniciar","/api/herois");
+        	.excludePathPatterns("/api/iniciar","/api/herois","/api/ranking");
         
     }
 }

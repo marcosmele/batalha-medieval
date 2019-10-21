@@ -141,7 +141,7 @@ public class ServicoBatalha {
 		int totalMonstro = servicoCalculo.calcularForca(dadoMonstro, monstro, atacante.equals(Raca.MONSTRO));
 		
 		ataque = (atacante.equals(Raca.HEROI) ? servicoCalculo.calcularDano(totalHeroi,totalMonstro,heroi) : servicoCalculo.calcularDano(totalMonstro, totalHeroi, monstro));
-		ataque.setDadoheroi(dadoHeroi);
+		ataque.setDadoHeroi(dadoHeroi);
 		ataque.setDadoMonstro(dadoMonstro);
 		ataque.setTotalHeroi(totalHeroi);
 		ataque.setTotalMonstro(totalMonstro);

@@ -34,7 +34,7 @@ public class ServicoRanking {
 	 * @return
 	 */
 	public List<Ranking> listar() {
-		return repositorio.findAll(Sort.by(Order.asc("pontuacao")));
+		return repositorio.findAll(Sort.by(Order.desc("pontuacao"),Order.asc("data")));
 	}
 	
 }

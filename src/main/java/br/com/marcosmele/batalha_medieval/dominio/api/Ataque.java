@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class Ataque {
 	
-	private Dado dadoheroi;
+	private Dado dadoHeroi;
 	private int totalHeroi;
 	private Dado dadoMonstro;
 	private int totalMonstro;

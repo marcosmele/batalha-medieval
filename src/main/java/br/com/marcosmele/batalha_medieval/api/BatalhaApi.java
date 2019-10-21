@@ -59,7 +59,7 @@ public class BatalhaApi {
 		return servicoBatalha.atacar(idBatalha);
 	}
 	
-	@PostMapping("/ranking")
+	@GetMapping("/ranking")
 	public List<Ranking> ranking(){
 		return servicoRanking.listar();
 	}
