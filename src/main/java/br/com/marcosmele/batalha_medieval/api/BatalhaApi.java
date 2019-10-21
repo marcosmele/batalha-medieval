@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.marcosmele.batalha_medieval.dominio.Classe;
 import br.com.marcosmele.batalha_medieval.dominio.Personagem;
+import br.com.marcosmele.batalha_medieval.dominio.Ranking;
 import br.com.marcosmele.batalha_medieval.dominio.api.Ataque;
 import br.com.marcosmele.batalha_medieval.dominio.api.Iniciativa;
 import br.com.marcosmele.batalha_medieval.servico.ServicoBatalha;
 import br.com.marcosmele.batalha_medieval.servico.ServicoGuerreiros;
+import br.com.marcosmele.batalha_medieval.servico.ServicoRanking;
 
 @RestController
 @RequestMapping("/api")
@@ -28,6 +30,9 @@ public class BatalhaApi {
 
 	@Autowired
 	private ServicoBatalha servicoBatalha;
+	
+	@Autowired
+	private ServicoRanking servicoRanking;
 
 	@GetMapping("/herois")
 	public List<Personagem> herois() {
@@ -52,6 +57,11 @@ public class BatalhaApi {
 	@PostMapping("/ataque")
 	public Ataque ataque(@RequestHeader("ID_BATALHA") String idBatalha){
 		return servicoBatalha.atacar(idBatalha);
+	}
+	
+	@PostMapping("/ranking")
+	public List<Ranking> ranking(){
+		return servicoRanking.listar();
 	}
 	
 }
