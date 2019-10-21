@@ -1,0 +1,23 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    container_name: database
+    networks: 
+      - rede
+  batalhaapp: 
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: batalha
+    ports:
+      - "8080:8080"
+    networks: 
+      - rede
+    depends_on:
+     - mongo
+            
+networks:
+ rede:
+  driver: bridge
+    

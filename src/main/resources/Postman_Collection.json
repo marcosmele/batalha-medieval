@@ -1,0 +1,220 @@
+{
+	"info": {
+		"_postman_id": "91385009-bfab-47d3-8fbd-27748e074811",
+		"name": "Desafio IMusica",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Iniciar",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nickname\":\"marcosmele\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/iniciar",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"iniciar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Herois",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"nickname\":\"marcosmele\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/herois",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"herois"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ranking",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ranking",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ranking"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Escolher Heroi",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ID_BATALHA",
+						"value": "5dada10467e3e9088d2f87c3",
+						"type": "text"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "GUERREIRO"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/heroi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"heroi"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Iniciativa",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ID_BATALHA",
+						"type": "text",
+						"value": "5dadf33367e3e95c0bed61ee"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/iniciativa",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"iniciativa"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Ataque",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ID_BATALHA",
+						"type": "text",
+						"value": "5dadf33367e3e95c0bed61ee"
+					},
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/ataque",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"ataque"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

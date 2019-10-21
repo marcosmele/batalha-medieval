@@ -1,0 +1,8 @@
+spring:
+  data:
+    mongodb:
+      host: database
+      database: batalha
+      port: 27017
+  application:
+    name: Batalha Medieval

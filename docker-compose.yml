@@ -1,0 +1,21 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    container_name: db
+    networks: 
+      - rede
+  batalhaapp: 
+    image: marcosmele/batalha-medieval
+    container_name: batalha
+    ports:
+      - "8080:8080"
+    networks: 
+      - rede
+    depends_on:
+     - mongo
+            
+networks:
+ rede:
+  driver: bridge
+    
