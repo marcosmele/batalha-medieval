@@ -2,12 +2,12 @@ version: '2'
 services:
   mongo:
     image: mongo
-    container_name: db
+    container_name: database
     networks: 
       - rede
   batalhaapp: 
     image: marcosmele/batalha-medieval
-    container_name: batalha
+    container_name: batalhaapp
     ports:
       - "8080:8080"
     networks: 
